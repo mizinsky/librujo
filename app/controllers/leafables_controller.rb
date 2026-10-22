@@ -4,7 +4,6 @@ class LeafablesController < ApplicationController
   include SetBookLeaf
 
   before_action :ensure_editable, except: :show
-  before_action :broadcast_being_edited_indicator, only: :update
 
   def new
     @leafable = new_leafable
@@ -64,10 +63,5 @@ class LeafablesController < ApplicationController
       if position = params[:position]&.to_i
         leaf.move_to_position position
       end
-    end
-
-    def broadcast_being_edited_indicator
-      Turbo::StreamsChannel.broadcast_render_later_to @leaf, :being_edited,
-        partial: "leaves/being_edited_by", locals: { leaf: @leaf, user: Current.user }
     end
 end

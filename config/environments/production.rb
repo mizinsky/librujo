@@ -40,8 +40,7 @@ Rails.application.configure do
   # for everything.
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
-  # Cache in memory for now
-  config.cache_store = :redis_cache_store
+  config.cache_store = :solid_cache_store
 
   # Assets are cacheable
   config.public_file_server.headers = {
@@ -62,5 +61,6 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.active_job.queue_adapter = :resque
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
 end

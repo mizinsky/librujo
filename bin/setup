@@ -6,7 +6,7 @@ announce() {
 }
 
 announce "Installing Ruby"
-mise install
+rbenv install --skip-existing
 
 announce "Installing dependencies"
 gem install bundler --conservative

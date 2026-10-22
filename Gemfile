@@ -6,14 +6,13 @@ gem "rails", github: "rails/rails"
 
 # Drivers
 gem "sqlite3", "~> 2.9"
-gem "redis", ">= 4.0.1"
 
 # Deployment
 gem "puma", "~> 7.2", ">= 7.2.1"
 
-# Jobs
-gem "resque", "~> 2.6.0"
-gem "resque-pool", "~> 0.7.1"
+# Jobs & caching
+gem "solid_queue"
+gem "solid_cache"
 
 # Front-end
 gem "propshaft"

@@ -16,3 +16,6 @@ end
 
 port ENV.fetch("PORT", 3000)
 plugin :tmp_restart
+
+# Run the Solid Queue supervisor inside Puma
+plugin :solid_queue
