@@ -114,7 +114,7 @@ class LeafablesControllerTest < ActionDispatch::IntegrationTest
     assert_in_body "title: \"Reading\""
   end
 
-  test "show a picture whose image cannot be resized" do
+  test "show a picture serves the uploaded image" do
     leaves(:reading_picture).leafable.image.attach io: file_fixture("pixel.bmp").open,
       filename: "pixel.bmp", content_type: "image/bmp"
 

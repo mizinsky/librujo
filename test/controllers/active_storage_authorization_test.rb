@@ -30,9 +30,9 @@ class ActiveStorageAuthorizationTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test "unpublishing a book revokes its picture variants' URLs" do
-    variant = attach_picture.variant(:large).processed
-    redirect_path, disk_path = rails_representation_path(variant), disk_path_for(variant)
+  test "unpublishing a book revokes its pictures' URLs" do
+    picture = attach_picture
+    redirect_path, disk_path = rails_blob_path(picture), disk_path_for(picture)
 
     books(:handbook).update! published: false
 
@@ -46,7 +46,7 @@ class ActiveStorageAuthorizationTest < ActionDispatch::IntegrationTest
   test "unpublishing a book revokes the disk URL behind a page upload" do
     upload = attach_upload_to_welcome_page
     get action_text_markdown_upload_path(slug: upload.slug)
-    disk_path = URI.parse(response.location).request_uri
+    disk_path = response.location
 
     books(:handbook).update! published: false
 
@@ -100,12 +100,12 @@ class ActiveStorageAuthorizationTest < ActionDispatch::IntegrationTest
 
   test "proxy routes are not served" do
     cover = attach_cover
-    variant = attach_picture.variant(:large).processed
+    picture = attach_picture
 
     get rails_storage_proxy_path(cover)
     assert_response :not_found
 
-    get rails_storage_proxy_path(variant)
+    get rails_storage_proxy_path(picture)
     assert_response :not_found
   end
 

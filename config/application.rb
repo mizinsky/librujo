@@ -39,5 +39,9 @@ module Writebook
 
     # Opt in to 8.0 timezone behavior
     config.active_support.to_time_preserves_timezone = :zone
+
+    # Images are served as uploaded: no resizing and no metadata extraction, so no libvips
+    config.active_storage.variant_processor = :disabled
+    config.active_storage.analyzers = []
   end
 end

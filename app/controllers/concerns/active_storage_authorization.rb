@@ -23,7 +23,6 @@ module ActiveStorageAuthorization
     def owning_books_of(blob)
       ActiveStorage::Attachment.where(blob: blob).flat_map do |attachment|
         case record = attachment.record
-        when ActiveStorage::VariantRecord then owning_books_of(record.blob)
         when Book then record
         when ActionText::Markdown then record.record.try(:owning_book)
         else record.try(:owning_book)
